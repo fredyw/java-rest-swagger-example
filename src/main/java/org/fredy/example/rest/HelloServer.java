@@ -1,4 +1,4 @@
-package org.fredy.example.swagger;
+package org.fredy.example.rest;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import io.swagger.jaxrs.config.BeanConfig;
@@ -30,7 +30,7 @@ public class HelloServer {
             beanConfig.setVersion("1.0.0");
             beanConfig.setSchemes(new String[]{"http"});
             beanConfig.setBasePath("/api");
-            beanConfig.setResourcePackage("org.fredy.example.swagger");
+            beanConfig.setResourcePackage("org.fredy.example.rest");
             beanConfig.setScan(true);
         }
     }

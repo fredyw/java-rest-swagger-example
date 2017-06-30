@@ -1,4 +1,4 @@
-package org.fredy.example.swagger;
+package org.fredy.example.rest;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

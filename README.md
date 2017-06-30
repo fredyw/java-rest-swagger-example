@@ -1,5 +1,5 @@
-# java-swagger-example
-An example of using Swagger in Java.
+# java-rest-swagger-example
+An example of building REST in Java.
 This example is a standalone web app that does not use any framework.
 It uses the following libraries:
 

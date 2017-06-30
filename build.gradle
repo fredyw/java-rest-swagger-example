@@ -36,6 +36,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes "Main-Class": "org.fredy.example.swagger.HelloServer"
+        attributes "Main-Class": "org.fredy.example.rest.HelloServer"
     }
 }
