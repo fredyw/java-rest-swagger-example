@@ -60,8 +60,8 @@ public class HelloServer {
         handlers.setHandlers(new Handler[]{staticHandler, servletHandler});
 
         // The mapping doesn't really matter here.
-        jerseyServlet = servletHandler.addServlet(Bootstrap.class, "/");
-        jerseyServlet.setInitOrder(2);
+        ServletHolder swaggerServlet = servletHandler.addServlet(Bootstrap.class, "/");
+        swaggerServlet.setInitOrder(2);
 
         Server jettyServer = new Server(8080);
         jettyServer.setHandler(handlers);
