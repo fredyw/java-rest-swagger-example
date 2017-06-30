@@ -6,7 +6,6 @@ import io.swagger.jaxrs.listing.ApiListingResource;
 import io.swagger.jaxrs.listing.SwaggerSerializers;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
@@ -18,34 +17,29 @@ import org.glassfish.jersey.servlet.ServletContainer;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import java.net.URI;
-import java.net.URL;
 import java.util.StringJoiner;
 
 public class HelloServer {
-    public class Bootstrap extends HttpServlet {
+    public static class Bootstrap extends HttpServlet {
         @Override
         public void init(ServletConfig config) throws ServletException {
             super.init(config);
 
             BeanConfig beanConfig = new BeanConfig();
-            beanConfig.setVersion("1.0.2");
+            beanConfig.setTitle("Hello API");
+            beanConfig.setVersion("1.0.0");
             beanConfig.setSchemes(new String[]{"http"});
-            beanConfig.setHost("localhost:8080");
             beanConfig.setBasePath("/api");
-            beanConfig.setResourcePackage("io.swagger.resources");
+            beanConfig.setResourcePackage("org.fredy.example.swagger");
             beanConfig.setScan(true);
         }
     }
 
     public static void main(String[] args) throws Exception {
-        ServletContextHandler context = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        context.setContextPath("/");
+        ServletContextHandler servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        servletHandler.setContextPath("/");
 
-        Server jettyServer = new Server(8080);
-        jettyServer.setHandler(context);
-
-        ServletHolder jerseyServlet = context.addServlet(ServletContainer.class, "/api/*");
+        ServletHolder jerseyServlet = servletHandler.addServlet(ServletContainer.class, "/api/*");
         jerseyServlet.setInitOrder(0);
 
         jerseyServlet.setInitParameter(
@@ -57,15 +51,20 @@ public class HelloServer {
                 .add(SwaggerSerializers.class.getCanonicalName())
             .toString());
 
-        ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setWelcomeFiles(new String[]{"index.html"});
-        resourceHandler.setBaseResource(Resource.newClassPathResource("/webapp"));
+        ResourceHandler staticHandler = new ResourceHandler();
+        staticHandler.setWelcomeFiles(new String[]{"index.html"});
+        staticHandler.setBaseResource(Resource.newClassPathResource("/webapp"));
 
         HandlerList handlers = new HandlerList();
-        handlers.setHandlers(new Handler[]{resourceHandler, context});
-        jettyServer.setHandler(handlers);
+        // Add two handlers, one for static content and the other one for dynamic content.
+        handlers.setHandlers(new Handler[]{staticHandler, servletHandler});
 
-//        jerseyServlet = context.addServlet(Bootstrap.class, "/doc/*");
+        // The mapping doesn't really matter here.
+        jerseyServlet = servletHandler.addServlet(Bootstrap.class, "/");
+        jerseyServlet.setInitOrder(2);
+
+        Server jettyServer = new Server(8080);
+        jettyServer.setHandler(handlers);
 
         try {
             jettyServer.start();

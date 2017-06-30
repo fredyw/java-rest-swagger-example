@@ -23,8 +23,11 @@ dependencies {
     compile "org.glassfish.jersey.containers:jersey-container-servlet:2.25.1"
 
     // Swagger dependencies
+    compile "io.swagger:swagger-core:1.5.15"
     compile "io.swagger:swagger-annotations:1.5.15"
     compile "io.swagger:swagger-jersey2-jaxrs:1.5.15"
+    // Required by BeanConfig
+    runtime "org.codehaus.groovy:groovy:2.4.12"
 
     // Required by Swagger
     runtime "ch.qos.logback:logback-core:1.2.3"
