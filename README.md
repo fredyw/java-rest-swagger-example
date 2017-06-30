@@ -4,8 +4,9 @@ This example is a standalone web app that does not use any framework.
 It uses the following libraries:
 
 1. Jetty for web server
-2. Jersey for REST (with JSON)
-3. Swagger for API documentation
+2. Jersey for REST
+3. Jackson for JSON
+4. Swagger for API documentation
 
 ## How to Build
 `./build.sh`
