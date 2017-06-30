@@ -66,7 +66,7 @@ public class HelloServer {
         jettyServer.setHandler(handlers);
 
 //        jerseyServlet = context.addServlet(Bootstrap.class, "/doc/*");
-gt
+
         try {
             jettyServer.start();
             jettyServer.join();
