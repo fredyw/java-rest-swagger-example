@@ -1,0 +1,39 @@
+plugins {
+    id "com.github.johnrengelman.shadow" version "2.0.1"
+//    id "org.detoeuf.swagger-codegen" version "1.7.1"
+    id "java"
+}
+
+apply plugin: "java"
+apply plugin: "com.github.johnrengelman.shadow"
+
+defaultTasks = ["clean", "build", "shadowJar"]
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    // Jetty dependencies
+    compile "org.eclipse.jetty:jetty-server:9.4.6.v20170531"
+    compile "org.eclipse.jetty:jetty-servlet:9.4.6.v20170531"
+
+    // Jersey dependencies
+    compile "org.glassfish.jersey.core:jersey-server:2.25.1"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:2.25.1"
+    compile "org.glassfish.jersey.containers:jersey-container-servlet:2.25.1"
+
+    // Swagger dependencies
+    compile "io.swagger:swagger-annotations:1.5.15"
+    compile "io.swagger:swagger-jersey2-jaxrs:1.5.15"
+
+    // Required by Swagger
+    runtime "ch.qos.logback:logback-core:1.2.3"
+    runtime "ch.qos.logback:logback-classic:1.2.3"
+}
+
+jar {
+    manifest {
+        attributes "Main-Class": "org.fredy.example.swagger.HelloServer"
+    }
+}

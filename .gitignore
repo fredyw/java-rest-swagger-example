@@ -2,6 +2,7 @@
 *.swp
 
 # InteliJ
+*.iml
 .idea/
 
 # Gradle
