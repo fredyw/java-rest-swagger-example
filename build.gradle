@@ -1,6 +1,5 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "2.0.1"
-//    id "org.detoeuf.swagger-codegen" version "1.7.1"
     id "java"
 }
 
