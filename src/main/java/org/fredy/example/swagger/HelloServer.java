@@ -58,7 +58,6 @@ public class HelloServer {
             .toString());
 
         ResourceHandler resourceHandler = new ResourceHandler();
-        resourceHandler.setDirectoriesListed(true);
         resourceHandler.setWelcomeFiles(new String[]{"index.html"});
         resourceHandler.setBaseResource(Resource.newClassPathResource("/webapp"));
 
@@ -67,8 +66,7 @@ public class HelloServer {
         jettyServer.setHandler(handlers);
 
 //        jerseyServlet = context.addServlet(Bootstrap.class, "/doc/*");
-//        jerseyServlet.setInitOrder(2);
-
+gt
         try {
             jettyServer.start();
             jettyServer.join();
